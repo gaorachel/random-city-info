@@ -1,0 +1,7 @@
+// to get all countries
+# GET https://restcountries.com/v3.1/all?fields=name
+# Content-Type: application/json
+
+
+GET https://restcountries.com/v3.1/all?fields=capital
+Content-Type: application/json
