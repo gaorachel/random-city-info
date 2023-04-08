@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from "react";
-import fetchCapitalCities from "./context/fetchCapitalCities";
+import fetchCountries from "./api/fetchCountries";
 
 function App(response) {
-  const [capitals, setCapitals] = useState();
+  const [countries, setCountries] = useState();
+  const [country, setCountry] = useState("United Kingdom");
+  const [capital, setcapital] = useState("London");
 
   useEffect(() => {
-    fetchCapitalCities().then((res) => {
-      setCapitals(res);
+    fetchCountries().then((res) => {
+      setCountries(res);
     });
   }, []);
 
-  let capital = "";
-  if (!capitals) capital = "London";
-
-  const i = Math.trunc(Math.random() * capitals?.data.length);
-  capital = capitals?.data[i].capital;
-
   const handleClick = () => {
-    fetchCapitalCities().then((res) => {
-      setCapitals(res);
-    });
+    if (!countries) return;
+
+    const i = Math.trunc(Math.random() * countries.data.length);
+    setCountry(countries.data[i].name.common);
+    setcapital(countries.data[i].capital);
   };
 
   return (
     <div>
-      Capital City: {capital}
-      <button onClick={handleClick}> Next </button>
+      <div>Country: {country}</div>
+      <div>Capital: {capital}</div>
+      <div>
+        <button onClick={handleClick}> Next </button>
+      </div>
     </div>
   );
 }
