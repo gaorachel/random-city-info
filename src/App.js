@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import fetchCountries from "./api/fetchCountries";
 import fetchCityImage from "./api/fetchCityImage";
+import fetchWeather from "./api/fetchWeather";
 
 function App(response) {
   const [countries, setCountries] = useState();
   const [country, setCountry] = useState("United Kingdom");
   const [capital, setcapital] = useState("London");
   const [cityImage, setCityImage] = useState("London");
+  const [weather, setWeather] = useState("raining");
+
+  const weatherDesc = weather.current?.condition.text;
 
   useEffect(() => {
     fetchCountries().then((res) => {
@@ -15,6 +19,9 @@ function App(response) {
   }, []);
 
   useEffect(() => {
+    fetchWeather(capital).then((res) => {
+      setWeather(res);
+    });
     fetchCityImage(capital).then((res) => {
       setCityImage(res);
     });
@@ -27,12 +34,20 @@ function App(response) {
     setCountry(countries.data[i].name.common);
     setcapital(countries.data[i].capital[0]);
   };
+  console.log(`https:${weather.current?.condition.icon}`);
 
   return (
     <div>
       <img alt={capital} src={cityImage} />
       <div>Country: {country}</div>
       <div>Capital: {capital}</div>
+      <div>
+        Weather:
+        <img alt={weatherDesc} src={`https:${weather.current?.condition.icon}`} />
+        {weatherDesc}
+      </div>
+      <div>Local Time: {weather.location?.localtime} </div>
+
       <div>
         <button onClick={handleClick}> Next </button>
       </div>
