@@ -1,0 +1,11 @@
+// to get all countries
+# GET https://restcountries.com/v3.1/all?fields=name
+# Content-Type: application/json
+
+
+# GET https://restcountries.com/v3.1/all?fields=capital
+# Content-Type: application/json
+
+
+GET http://api.weatherapi.com/v1/history.json?key=${process.env.REACT_APP_WEATHER_API_KEY}=${capital}&dt=2023-03-01
+Content-Type: application/json
