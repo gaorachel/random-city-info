@@ -2,28 +2,35 @@ import React, { useEffect, useState } from "react";
 import fetchCountries from "./api/fetchCountries";
 import fetchCityImage from "./api/fetchCityImage";
 import fetchWeather from "./api/fetchWeather";
+import { GridLoader } from "react-spinners";
 
 function App(response) {
+  const [loading, setLoading] = useState(false);
+
   const [countries, setCountries] = useState();
   const [country, setCountry] = useState("United Kingdom");
-  const [capital, setcapital] = useState("London");
+  const [capital, setCapital] = useState("London");
   const [cityImage, setCityImage] = useState("London");
   const [weather, setWeather] = useState("raining");
 
   const weatherDesc = weather.current?.condition.text;
 
   useEffect(() => {
+    setLoading(true);
     fetchCountries().then((res) => {
       setCountries(res);
+      setLoading(false);
     });
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     fetchWeather(capital).then((res) => {
       setWeather(res);
-    });
-    fetchCityImage(capital).then((res) => {
-      setCityImage(res);
+      fetchCityImage(capital).then((res) => {
+        setCityImage(res);
+        setLoading(false);
+      });
     });
   }, [capital]);
 
@@ -32,9 +39,10 @@ function App(response) {
 
     const i = Math.trunc(Math.random() * countries.data.length);
     setCountry(countries.data[i].name.common);
-    setcapital(countries.data[i].capital[0]);
+    setCapital(countries.data[i].capital[0]);
   };
-  console.log(`https:${weather.current?.condition.icon}`);
+
+  if (loading) return <GridLoader color="#578ce6" margin={4} />;
 
   return (
     <div>
@@ -47,7 +55,6 @@ function App(response) {
         {weatherDesc}
       </div>
       <div>Local Time: {weather.location?.localtime} </div>
-
       <div>
         <button onClick={handleClick}> Next </button>
       </div>
