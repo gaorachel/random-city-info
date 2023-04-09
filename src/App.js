@@ -7,11 +7,11 @@ import { GridLoader } from "react-spinners";
 function App(response) {
   const [loading, setLoading] = useState(false);
 
-  const [countries, setCountries] = useState();
+  const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("United Kingdom");
   const [capital, setCapital] = useState("London");
   const [cityImage, setCityImage] = useState("London");
-  const [weather, setWeather] = useState("raining");
+  const [weather, setWeather] = useState({});
 
   const weatherDesc = weather.current?.condition.text;
 
