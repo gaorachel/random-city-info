@@ -5,7 +5,7 @@ import fetchWeather from "./api/fetchWeather";
 import { GridLoader } from "react-spinners";
 import { useQuery, useIsFetching } from "@tanstack/react-query";
 
-function App(response) {
+function App() {
   const [country, setCountry] = useState("United Kingdom");
   const [capital, setCapital] = useState("London");
 
@@ -43,39 +43,47 @@ function App(response) {
   };
 
   const isFetching = useIsFetching();
-  if (isFetching) return <GridLoader color="#578ce6" margin={4} />;
+  if (isFetching)
+    return (
+      <GridLoader
+        className="absolute top-1/2 left-1/2"
+        color="#b3becc"
+        margin={4}
+      />
+    );
   if (!weather) return null;
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex flex-col items-center justify-center max-w-sm m-auto">
       <div className="relative">
-        <img alt={capital} src={cityImage} className="w-96 h-96 object-cover" />
+        {/** City image */}
+        <img
+          alt={capital}
+          src={cityImage}
+          className="w-96 h-96 object-cover rounded-xl"
+        />
         {/** City info card */}
         <div
-          className="flex flex-col p-4 w-96 gap-4 absolute bottom-0"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+          className="flex p-4 w-96 gap-4 absolute bottom-0 justify-between rounded-b-xl"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
         >
-          <div className="flex gap-2 justify-between">
-            <p className="text-white">local time</p>
-            <p className="text-white">icon</p>
+          <div className="flex flex-col gap-2 justify-between">
+            <p className="text-3xl font-medium text-white">{capital}</p>
+            <p className="text-xl font-medium text-white">{country}</p>
           </div>
-          <div className="flex flex-col">
-            <p className="text-xl font-medium text-white">City</p>
-            <p className="text-xl font-medium text-white">Country</p>
+          <div className="flex flex-col items-end">
+            <p className="text-white w-max">{weather.localTime}</p>
+            <img alt={weather.desc} src={weather.iconSrc} className="w-12" />
           </div>
         </div>
-        {/* <div>Country: {country}</div>
-        <div>Capital: {capital}</div>
-        <div>
-          Weather:
-          <img alt={weather.desc} src={weather.iconSrc} />
-          {weather.desc}
-        </div>
-        <div>Local Time: {weather?.localTime} </div>
-        <div>
-          <button onClick={handleClick}> Next </button>
-        </div> */}
       </div>
+      {/** Next button */}
+      <button
+        onClick={handleClick}
+        className="p-2 px-4 self-end bg-slate-300 rounded-md mt-2 shadow-sm hover:bg-slate-400 transition"
+      >
+        Next
+      </button>
     </div>
   );
 }

@@ -8,7 +8,7 @@ async function fetchCityImage(city) {
     params: { query: city },
   });
 
-  return response.data.results[0].urls.small_s3;
+  return response.data?.results?.[0]?.urls?.regular;
 }
 
 export default fetchCityImage;
