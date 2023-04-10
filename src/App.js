@@ -47,18 +47,34 @@ function App(response) {
   if (!weather) return null;
 
   return (
-    <div>
-      <img alt={capital} src={cityImage} />
-      <div>Country: {country}</div>
-      <div>Capital: {capital}</div>
-      <div>
-        Weather:
-        <img alt={weather.desc} src={weather.iconSrc} />
-        {weather.desc}
-      </div>
-      <div>Local Time: {weather?.localTime} </div>
-      <div>
-        <button onClick={handleClick}> Next </button>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="relative">
+        <img alt={capital} src={cityImage} className="w-96 h-96 object-cover" />
+        {/** City info card */}
+        <div
+          className="flex flex-col p-4 w-96 gap-4 absolute bottom-0"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+        >
+          <div className="flex gap-2 justify-between">
+            <p className="text-white">local time</p>
+            <p className="text-white">icon</p>
+          </div>
+          <div className="flex flex-col">
+            <p className="text-xl font-medium text-white">City</p>
+            <p className="text-xl font-medium text-white">Country</p>
+          </div>
+        </div>
+        {/* <div>Country: {country}</div>
+        <div>Capital: {capital}</div>
+        <div>
+          Weather:
+          <img alt={weather.desc} src={weather.iconSrc} />
+          {weather.desc}
+        </div>
+        <div>Local Time: {weather?.localTime} </div>
+        <div>
+          <button onClick={handleClick}> Next </button>
+        </div> */}
       </div>
     </div>
   );
