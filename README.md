@@ -2,7 +2,7 @@
 
 An app to show you the current weather and its local time of a random capital city.
 
-https://random-city-info.vercel.app/
+https://random-city-info-rg.vercel.app/
 
 ### Notes
 
